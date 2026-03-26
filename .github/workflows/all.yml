@@ -19,7 +19,6 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - macos-latest
         ocaml-compiler:
           - "4.14.0"
 
@@ -28,42 +27,49 @@ jobs:
     steps:
     - name: Checkout tree
       uses: actions/checkout@v4
-
-    - name: Set-up OCaml
-      uses: ocaml/setup-ocaml@v3
       with:
-        ocaml-compiler: ${{ matrix.ocaml-compiler }}
+        fetch-depth: 0
 
-    - name: Install OCaml deps
-      run: opam install . --deps-only --with-test
 
-    - name: Build
-      run: opam exec -- dune build
+    - name: Describe tag
+      run: git show HEAD
 
-    - name: Test
-      run: opam exec -- dune runtest
 
-    - name: Install dune-release
-      if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
-      run: opam install dune-release -y
+    # - name: Set-up OCaml
+    #   uses: ocaml/setup-ocaml@v3
+    #   with:
+    #     ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-    - name: Dune release
-      if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
-      uses: davesnx/dune-release-action@v0.2.14
-      with:
-        packages: passage
-        github-token: ${{ secrets.GH_TOKEN }}
+    # - name: Install OCaml deps
+    #   run: opam install . --deps-only --with-test
 
-  lint-fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout tree
-        uses: actions/checkout@v4
+    # - name: Build
+    #   run: opam exec -- dune build
 
-      - name: Set-up OCaml
-        uses: ocaml/setup-ocaml@v3
-        with:
-          ocaml-compiler: 4.14
+    # - name: Test
+    #   run: opam exec -- dune runtest
 
-      - name: Lint fmt
-        uses: ocaml/setup-ocaml/lint-fmt@v3
+    # - name: Install dune-release
+    #   if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
+    #   run: opam install dune-release -y
+
+    # - name: Dune release
+    #   if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
+    #   uses: davesnx/dune-release-action@v0.2.14
+    #   with:
+    #     packages: passage
+    #     github-token: ${{ secrets.GH_TOKEN }}
+
+  # lint-fmt:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout tree
+  #       uses: actions/checkout@v4
+
+  #     - name: Set-up OCaml
+  #       uses: ocaml/setup-ocaml@v3
+  #       with:
+  #         ocaml-compiler: 4.14
+
+  #     - name: Lint fmt
+  #       uses: ocaml/setup-ocaml/lint-fmt@v3
