@@ -32,7 +32,7 @@ jobs:
 
 
     - name: Describe tag
-      run: git show HEAD
+      run: git for-each-ref && git describe
 
 
     # - name: Set-up OCaml
