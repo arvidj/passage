@@ -54,6 +54,8 @@ jobs:
         packages: passage
         github-token: ${{ secrets.GH_TOKEN }}
         changelog: ./CHANGES.md
+        to-opam-repository: true              # Submit PR to opam-repository
+        to-github-releases: true              # Create GitHub release
 
   lint-fmt:
     runs-on: ubuntu-latest
