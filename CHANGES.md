@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.3.6~dev (2026-10-20)
+
 - Fix a deadlock in `encrypt_string` ([#25](https://github.com/ahrefs/passage/pull/25))
 - Fix clobbering of special files in `Storage.save_as` ([#28](https://github.com/ahrefs/passage/pull/28))
 - Can `edit-who` directories ([#33](https://github.com/ahrefs/passage/pull/33))
